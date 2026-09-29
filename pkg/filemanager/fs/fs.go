@@ -625,11 +625,13 @@ type (
 	UploadRequest struct {
 		Props *UploadProps
 
-		Mode         WriteMode
-		File         io.ReadCloser `json:"-"`
-		Seeker       io.Seeker     `json:"-"`
-		Offset       int64
-		ProgressFunc `json:"-"`
+		Mode            WriteMode
+		File            io.ReadCloser `json:"-"`
+		Seeker          io.Seeker     `json:"-"`
+		Offset          int64
+		MoveSource      bool `json:"-"` // Request a zero-copy relocation when the storage driver supports it.
+		SourceRelocated bool `json:"-"` // Set by the storage driver when the source must be removed after completion.
+		ProgressFunc    `json:"-"`
 
 		ImportFrom *PhysicalObject `json:"-"`
 		read       int64

@@ -501,6 +501,10 @@ func (m *RemoteDownloadTask) masterTransfer(ctx context.Context, dep dependency.
 				Uri:  dst,
 				Size: file.Size,
 			},
+			// A completed master-node download may be hard-linked into local
+			// storage and then unlinked after upload completion. Seeding tasks
+			// retain their source files so the downloader can continue serving.
+			MoveSource: m.state.Status.State == downloader.StatusCompleted,
 			ProgressFunc: func(current, diff int64, total int64) {
 				atomic.AddInt64(&fileProgress.Current, diff)
 				atomic.AddInt64(&uploadProgress.Current, diff)

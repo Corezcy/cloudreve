@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strconv"
 	"sync"
 	"time"
@@ -453,6 +454,18 @@ func (m *manager) Update(ctx context.Context, req *fs.UploadRequest, opts ...fs.
 	if err != nil {
 		m.OnUploadFailed(ctx, uploadSession)
 		return nil, fmt.Errorf("failed to complete update: %w", err)
+	}
+
+	// local.Driver uses a hard link for MoveSource so that the source remains
+	// available until the database update above succeeds. Drop that temporary
+	// link only after a successful completion; Cleanup will still remove it if
+	// this best-effort removal fails.
+	if req.SourceRelocated {
+		if source, ok := req.File.(*os.File); ok {
+			if err := os.Remove(source.Name()); err != nil && !os.IsNotExist(err) {
+				m.l.Warning("Failed to remove relocated upload source %s: %s", source.Name(), err)
+			}
+		}
 	}
 
 	return file, nil

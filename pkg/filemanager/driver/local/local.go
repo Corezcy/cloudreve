@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"syscall"
 	"time"
 
 	"github.com/cloudreve/Cloudreve/v4/ent"
@@ -137,6 +138,32 @@ func (handler *Driver) Put(ctx context.Context, file *fs.UploadRequest) error {
 
 	if err := handler.prepareFileDirectory(dst); err != nil {
 		return err
+	}
+
+	// Remote downloads can be relocated into a local storage policy without
+	// copying their contents when both paths are on the same file system. Link
+	// first and let the caller remove the source after its database transaction
+	// completes, so a failed completion never loses the downloaded file.
+	if file.MoveSource {
+		source, ok := file.File.(*os.File)
+		if !ok {
+			return errors.New("moving a local file requires an os.File source")
+		}
+		if file.Offset != 0 {
+			return errors.New("moving a local file does not support a non-zero offset")
+		}
+
+		if err := os.Link(source.Name(), dst); err == nil {
+			file.SourceRelocated = true
+			if file.ProgressFunc != nil {
+				file.ProgressFunc(file.Props.Size, file.Props.Size, file.Props.Size)
+			}
+			return nil
+		} else if !errors.Is(err, syscall.EXDEV) {
+			return fmt.Errorf("failed to link source file into local storage: %w", err)
+		}
+
+		handler.l.Debug("Source and local storage are on different file systems; falling back to copy: %s", source.Name())
 	}
 
 	openMode := os.O_CREATE | os.O_RDWR
