@@ -1,4 +1,4 @@
-[English Version](https://github.com/cloudreve/cloudreve/blob/master/README.md)
+[English Version](README.md)
 
 <h1 align="center">
   <br>
@@ -8,21 +8,17 @@
   <br>
 </h1>
 
-<h4 align="center">支持多家云存储驱动的公有云文件系统.</h4>
+<h4 align="center">基于 Cloudreve 4.18.0 的离线下载免拷贝移动版</h4>
+
+> **这是基于 [Cloudreve 4.18.0](https://github.com/cloudreve/cloudreve/releases/tag/4.18.0) 的非官方修改版。** 主节点的离线下载完成后，若目标为本地存储且源文件与目标目录位于同一文件系统，会先建立硬链接，待上传完成后再删除源文件，避免再次拷贝文件内容。跨文件系统时仍回退到拷贝；做种任务及其他存储路径保持原有行为。
 
 <p align="center">
-  <a href="https://dev.azure.com/abslantliu/cloudreve/_build?definitionId=6">
-    <img src="https://img.shields.io/github/check-runs/cloudreve/cloudreve/master"
-         alt="Azure pipelines">
+  <a href="https://github.com/Corezcy/cloudreve/actions/workflows/fork-release.yml">
+    <img src="https://github.com/Corezcy/cloudreve/actions/workflows/fork-release.yml/badge.svg?branch=feat%2F4.18.0-zero-copy-remote-download"
+         alt="修改版构建">
   </a>
-  <a href="https://github.com/cloudreve/cloudreve/releases">
-    <img src="https://img.shields.io/github/v/release/cloudreve/cloudreve?include_prereleases" />
-  </a>
-  <a href="https://github.com/cloudreve/cloudreve/releases">
-     <img src="https://badgen.net/static/release%20size/34%20MB/blue"/>
-  </a>
-  <a href="https://hub.docker.com/r/cloudreve/cloudreve">
-  <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/cloudreve/cloudreve" />
+  <a href="https://github.com/Corezcy/cloudreve/releases">
+    <img src="https://img.shields.io/github/v/release/Corezcy/cloudreve?include_prereleases" alt="修改版发布" />
   </a>
 </p>
 <p align="center">
@@ -30,7 +26,8 @@
   <a href="https://demo.cloudreve.org">演示</a> •
   <a href="https://github.com/cloudreve/cloudreve/discussions">讨论</a> •
   <a href="https://docs.cloudreve.org">文档</a> •
-  <a href="https://github.com/cloudreve/cloudreve/releases">下载</a> •
+  <a href="https://github.com/Corezcy/cloudreve/releases">下载修改版</a> •
+  <a href="https://github.com/cloudreve/cloudreve">上游项目</a> •
   <a href="https://t.me/cloudreve_official">Telegram</a> •
   <a href="https://discord.com/invite/WTpMFpZT76">Discord</a>
 </p>
@@ -62,6 +59,8 @@
 ## :gear: 构建
 
 你可以参考 [构建](https://docs.cloudreve.org/overview/build/) 从源代码构建 Cloudreve。
+
+此修改版也通过 [GitHub Actions](https://github.com/Corezcy/cloudreve/actions/workflows/fork-release.yml) 构建、测试，并在 [Releases](https://github.com/Corezcy/cloudreve/releases) 提供二进制下载；此 fork 不发布 Docker 镜像。
 
 ## :rocket: 贡献
 

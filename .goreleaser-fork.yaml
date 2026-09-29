@@ -61,3 +61,7 @@ release:
   prerelease: true
   target_commitish: '{{ .Commit }}'
   name_template: '{{ .Tag }}'
+  header: |
+    > 基于 [Cloudreve 4.18.0](https://github.com/cloudreve/cloudreve/releases/tag/4.18.0) 的非官方修改版：主节点的离线下载完成后，转入同一文件系统的本地存储时免拷贝移动；上传完成后才删除源文件。跨文件系统仍会拷贝，做种任务和其他存储路径保持原有行为。
+
+    > Unofficial Cloudreve 4.18.0 build: completed master-node offline downloads targeting local storage are relocated without copying file contents on the same filesystem. The source is removed after upload completion. Cross-filesystem transfers still copy; seeding tasks and other storage paths retain the original behavior.

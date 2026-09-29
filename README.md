@@ -1,4 +1,4 @@
-[中文版本](https://github.com/cloudreve/cloudreve/blob/master/README_zh-CN.md)
+[中文版本](README_zh-CN.md)
 
 <h1 align="center">
   <br>
@@ -7,21 +7,17 @@
   Cloudreve
   <br>
 </h1>
-<h4 align="center">Self-hosted file management system with multi-cloud support.</h4>
+<h4 align="center">Cloudreve 4.18.0 fork with zero-copy offline download relocation.</h4>
+
+> **Unofficial variant based on [Cloudreve 4.18.0](https://github.com/cloudreve/cloudreve/releases/tag/4.18.0).** When a completed offline download on the master node is transferred to local storage on the same filesystem, this fork links the file into place and removes the source after upload completion instead of copying its contents. Transfers across filesystems fall back to copying. Seeding tasks and other storage paths retain the original behavior.
 
 <p align="center">
-  <a href="https://dev.azure.com/abslantliu/cloudreve/_build?definitionId=6">
-    <img src="https://img.shields.io/github/check-runs/cloudreve/cloudreve/master"
-         alt="Azure pipelines">
+  <a href="https://github.com/Corezcy/cloudreve/actions/workflows/fork-release.yml">
+    <img src="https://github.com/Corezcy/cloudreve/actions/workflows/fork-release.yml/badge.svg?branch=feat%2F4.18.0-zero-copy-remote-download"
+         alt="Fork build">
   </a>
-  <a href="https://github.com/cloudreve/cloudreve/releases">
-    <img src="https://img.shields.io/github/v/release/cloudreve/cloudreve?include_prereleases" />
-  </a>
-  <a href="https://github.com/cloudreve/cloudreve/releases">
-     <img src="https://badgen.net/static/release%20size/34%20MB/blue"/>
-  </a>
-  <a href="https://hub.docker.com/r/cloudreve/cloudreve">
-  <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/cloudreve/cloudreve" />
+  <a href="https://github.com/Corezcy/cloudreve/releases">
+    <img src="https://img.shields.io/github/v/release/Corezcy/cloudreve?include_prereleases" alt="Fork release" />
   </a>
 </p>
 <p align="center">
@@ -29,7 +25,8 @@
   <a href="https://demo.cloudreve.org">Try it</a> •
   <a href="https://github.com/cloudreve/cloudreve/discussions">Discussion</a> •
   <a href="https://docs.cloudreve.org">Documents</a> •
-  <a href="https://github.com/cloudreve/cloudreve/releases">Download</a> •
+  <a href="https://github.com/Corezcy/cloudreve/releases">Download this fork</a> •
+  <a href="https://github.com/cloudreve/cloudreve">Upstream</a> •
   <a href="https://t.me/cloudreve_official">Telegram</a> •
   <a href="https://discord.com/invite/WTpMFpZT76">Discord</a>
 </p>
@@ -61,6 +58,8 @@ When you're ready to deploy Cloudreve to a production environment, you can refer
 ## :gear: Build
 
 Please refer to [Build](https://docs.cloudreve.org/overview/build/) for how to build Cloudreve from source code.
+
+This fork also [builds and tests on GitHub Actions](https://github.com/Corezcy/cloudreve/actions/workflows/fork-release.yml) and publishes binaries under [Releases](https://github.com/Corezcy/cloudreve/releases). It does not publish a Docker image.
 
 ## :rocket: Contributing
 
